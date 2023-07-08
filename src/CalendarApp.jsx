@@ -3,6 +3,7 @@ import { AppRouter } from "./router"
 import { store } from "./store"
 import { BrowserRouter } from "react-router-dom"
 
+
 export const CalendarApp = () => {
     return (
         <>
@@ -10,6 +11,8 @@ export const CalendarApp = () => {
                 <BrowserRouter>
                     <AppRouter />
                 </BrowserRouter>
+
+
             </Provider>
 
         </>

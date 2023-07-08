@@ -1,19 +1,18 @@
-import { useMemo, useState, useEffect } from "react";
-
+import { useEffect, useMemo, useState } from 'react';
 
 export const useForm = (initialForm = {}, formValidations = {}) => {
 
-    const [formValues, setFormValues] = useState(initialForm);
-    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [formState, setFormState] = useState(initialForm);
     const [formValidation, setFormValidation] = useState({});
 
     useEffect(() => {
         createValidators();
-    }, [formValues]);
+    }, [formState])
 
     useEffect(() => {
-        setFormValues(initialForm);
-    }, [initialForm]);
+        setFormState(initialForm);
+    }, [initialForm])
+
 
     const isFormValid = useMemo(() => {
 
@@ -22,20 +21,19 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
         }
 
         return true;
-    }, [formValidation]);
+    }, [formValidation])
 
 
-
-    const onInputChanged = ({ target }) => {
+    const onInputChange = ({ target }) => {
         const { name, value } = target;
-        setFormValues({
-            ...formValues,
-            [name]: value,
+        setFormState({
+            ...formState,
+            [name]: value
         });
     }
 
     const onResetForm = () => {
-        setFormValues(initialForm);
+        setFormState(initialForm);
     }
 
     const createValidators = () => {
@@ -45,38 +43,21 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
         for (const formField of Object.keys(formValidations)) {
             const [fn, errorMessage] = formValidations[formField];
 
-            formCheckedValues[`${formField}Valid`] = fn(formValues[formField]) ? null : errorMessage;
+            formCheckedValues[`${formField}Valid`] = fn(formState[formField]) ? null : errorMessage;
         }
 
         setFormValidation(formCheckedValues);
     }
 
-    const onDateChanged = (event, changing) => {
-        setFormValues({
-            ...formValues,
-            [changing]: event
-        });
-    }
-    const titleClass = useMemo(() => {
-        if (!formSubmitted) return;
-        return (formValues.title.length > 0)
-            ? ''
-            : 'is-invalid'
 
-    }, [formValues.title, formSubmitted]);
 
     return {
-        ...formValues,
-        formValues,
-        setFormValues,
-        onInputChanged,
-        onDateChanged,
-        formSubmitted,
-        setFormSubmitted,
-        titleClass,
-        ...formValidation,
-        isFormValid,
-        onResetForm
-    }
+        ...formState,
+        formState,
+        onInputChange,
+        onResetForm,
 
+        ...formValidation,
+        isFormValid
+    }
 }

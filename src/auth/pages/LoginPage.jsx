@@ -1,6 +1,6 @@
 
 
-import { isValidElement, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from '../../hooks/useForm';
 import './LoginPage.css';
 import { useAuthStore } from '../../hooks/useAuthStore';
@@ -24,8 +24,8 @@ export const LoginPage = () => {
 
     const { startLogin, startRegister, errorMessage } = useAuthStore();
 
-    const { loginEmail, loginPassword, onInputChanged: onLoginInputChange } = useForm(loginFormFields);
-    const { registerName, registerEmail, registerPassword, registerPassword2, onInputChanged: onRegisterInputChange } = useForm(registerFormFields);
+    const { loginEmail, loginPassword, onInputChange: onLoginInputChange } = useForm(loginFormFields);
+    const { registerName, registerEmail, registerPassword, registerPassword2, onInputChange: onRegisterInputChange } = useForm(registerFormFields);
 
     const loginSubmit = (event) => {
         event.preventDefault();

@@ -1,18 +1,12 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "../pages/LoginPage";
-import { useAuthStore } from "../../hooks";
+
 
 
 export const AuthRoutes = () => {
-    const { status } = useAuthStore();
 
+    const status = 'authenticated';
 
-    // if (status === 'checking') {
-    //     return (
-    //         <h1>Cargando...</h1>
-    //     )
-    // }
-    //const status = 'authenticated';
     if (status === 'authenticated') {
         return <Navigate to={'/'} />
     }

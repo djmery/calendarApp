@@ -1,20 +1,21 @@
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { Calendar } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { CalendarEvent, CalendarModal, FabAddNew, FabDelete, Navbar } from "../";
 import { localizer, getMessagesES } from '../../helpers';
 import { useState } from 'react';
 import { useUiStore, useCalendarStore } from '../../hooks';
-import set from 'date-fns/esm/set';
+
 
 
 
 export const CalendarPage = () => {
 
-    const [lastView, setlastView] = useState(localStorage.getItem('lastView') || 'week');
-    const { openDateModal, closeDateModal } = useUiStore();
+    const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week');
+    const { openDateModal } = useUiStore();
     const { events, setActiveEvent } = useCalendarStore();
 
-    const eventStyleGetter = (event, start, end, isSelected) => {
+    const eventStyleGetter = () => {
+        //console.log({ event, start, end, isSelected });
         const style = {
             backgroundColor: '#347CF7',
             borderRadius: '0px',
@@ -26,7 +27,7 @@ export const CalendarPage = () => {
         }
     }
 
-    const onDoubleClick = (event) => {
+    const onDoubleClick = () => {
         openDateModal();
     }
     const onSelect = (event) => {
@@ -35,6 +36,7 @@ export const CalendarPage = () => {
     }
     const onViewChanged = (event) => {
         localStorage.setItem('lastView', event);
+        setLastView(event);
         //console.log({ viewChanged: event });
     }
 
