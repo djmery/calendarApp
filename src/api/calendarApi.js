@@ -9,6 +9,7 @@ const calendarApi = axios.create({
 });
 
 //TODO: configurar interceptores
+//NOs permite interceptar una petición antes o después de que se haga y añadir o modificar la respuesta o añádir o modificar información a la petición
 // Los interceptores nos permite interceptar las peticiones. Ocupamos un interceptor a la hora de hacer un request
 //cualquier petición que haga con el api le coloque este header.
 calendarApi.interceptors.request.use(config => {

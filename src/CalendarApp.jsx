@@ -11,8 +11,6 @@ export const CalendarApp = () => {
                 <BrowserRouter>
                     <AppRouter />
                 </BrowserRouter>
-
-
             </Provider>
 
         </>
